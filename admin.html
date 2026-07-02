@@ -125,6 +125,7 @@
             <div id="usersContent" class="section" style="display: none;">
                 <div class="section-header">
                     <h2>Usuarios Registrados</h2>
+                    <button id="showAdminRegisterFormBtn" type="button" class="btn-primary" style="margin-left: 12px;">+ Nuevo administrador</button>
                 </div>
                 <div class="table-responsive">
                     <table id="adminUsersTable" class="bets-table">
@@ -148,7 +149,7 @@
                 </div>
 
                 <!-- Form para registrar administradores -->
-                <div style="margin-top: 20px; padding: 15px; border-radius: 8px; border: 1px solid #e6e6e6; background: #fafafa;">
+                <div id="adminRegisterCard" style="margin-top: 20px; padding: 15px; border-radius: 8px; border: 1px solid #e6e6e6; background: #fafafa; scroll-margin-top: 90px;">
                     <h3>Registrar Administrador</h3>
                     <form id="adminRegisterForm" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: end;">
                         <div style="flex: 1; min-width: 180px;">
@@ -164,7 +165,7 @@
                             <input id="adminRegPassword" type="password" required>
                         </div>
                         <div>
-                            <button id="adminRegisterBtn" class="btn-primary">Registrar Admin</button>
+                            <button id="adminRegisterBtn" type="submit" class="btn-primary">Registrar Admin</button>
                         </div>
                         <div id="adminRegisterMsg" style="width:100%; color: green; display:none; margin-top:8px;"></div>
                     </form>
