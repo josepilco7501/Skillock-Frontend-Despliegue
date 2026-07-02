@@ -45,6 +45,7 @@
                 <a href="#" class="nav-link active" data-admin-view="dashboard">Dashboard</a>
                 <a href="#" class="nav-link" data-admin-view="bets">Apuestas</a>
                 <a href="#" class="nav-link" data-admin-view="users">Usuarios</a>
+                <a href="#" class="nav-link" data-admin-view="admin-register">Registrar Admin</a>
             </div>
             <div class="navbar-right">
                 <button id="adminLogoutBtn" class="btn-logout">Logout</button>
@@ -125,7 +126,7 @@
             <div id="usersContent" class="section" style="display: none;">
                 <div class="section-header">
                     <h2>Usuarios Registrados</h2>
-                    <button id="showAdminRegisterFormBtn" type="button" class="btn-primary" style="margin-left: 12px;">+ Nuevo administrador</button>
+                    <button id="scrollToAdminRegisterFormBtn" type="button" class="btn-primary" style="margin-left: 12px;">+ Nuevo administrador</button>
                 </div>
                 <div class="table-responsive">
                     <table id="adminUsersTable" class="bets-table">
@@ -147,10 +148,14 @@
                 <div id="usersMessage" style="margin-top: 20px; padding: 15px; background: rgba(255, 165, 0, 0.1); border: 1px solid #f5a623; border-radius: 8px; color: #f5a623; text-align: center; display: none;">
                     ⚠️ Endpoint de usuarios pendiente de implementación
                 </div>
+            </div>
 
-                <!-- Form para registrar administradores -->
-                <div id="adminRegisterCard" style="margin-top: 20px; padding: 15px; border-radius: 8px; border: 1px solid #e6e6e6; background: #fafafa; scroll-margin-top: 90px;">
-                    <h3>Registrar Administrador</h3>
+            <!-- VISTA Registrar Admin - Formulario separado estilo pestaña -->
+            <div id="adminRegisterContent" class="section" style="display: none;">
+                <div class="section-header">
+                    <h2>Registrar Administrador</h2>
+                </div>
+                <div style="padding: 15px; border-radius: 8px; border: 1px solid #e6e6e6; background: #fafafa; max-width: 900px;">
                     <form id="adminRegisterForm" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: end;">
                         <div style="flex: 1; min-width: 180px;">
                             <label>Usuario</label><br>

@@ -61,17 +61,6 @@ async function apiCall(endpoint, options = {}) {
 }
 
 
-// Registrar administrador desde el panel
-const showAdminRegisterFormBtn = document.getElementById('showAdminRegisterFormBtn');
-if (showAdminRegisterFormBtn) {
-    showAdminRegisterFormBtn.addEventListener('click', () => {
-        const registerCard = document.getElementById('adminRegisterCard');
-        if (registerCard) {
-            registerCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-}
-
 const adminRegisterForm = document.getElementById('adminRegisterForm');
 if (adminRegisterForm) {
     adminRegisterForm.addEventListener('submit', async (e) => {
@@ -144,6 +133,7 @@ function switchAdminView(viewName) {
     document.getElementById('dashboardContent').style.display = viewName === 'dashboard' ? 'block' : 'none';
     document.getElementById('betsContent').style.display = viewName === 'bets' ? 'block' : 'none';
     document.getElementById('usersContent').style.display = viewName === 'users' ? 'block' : 'none';
+    document.getElementById('adminRegisterContent').style.display = viewName === 'admin-register' ? 'block' : 'none';
 
     // Cargar datos según la vista
     if (viewName === 'bets') {
