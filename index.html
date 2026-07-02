@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillock - Plataforma de Apuestas Esports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- VISTA 1: LOGIN/REGISTRO -->
+    <section id="authView" class="view active">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <img src="./logo.png" alt="Skillock Logo" class="logo-img">
+            </div>
+            
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                    <button class="tab-btn" data-tab="register">Registrarse</button>
+                </div>
+
+                <!-- Tab Login -->
+                <div id="loginTab" class="tab-content active">
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Contraseña</label>
+                            <input type="password" id="loginPassword" name="password" required>
+                        </div>
+                        <div id="loginError" class="error-message"></div>
+                        <button type="submit" class="btn-primary">ENTRAR</button>
+                    </form>
+                </div>
+
+                <!-- Tab Register -->
+                <div id="registerTab" class="tab-content">
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="registerUsername">Usuario</label>
+                            <input type="text" id="registerUsername" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Contraseña</label>
+                            <input type="password" id="registerPassword" name="password" required>
+                        </div>
+                        <div id="registerError" class="error-message"></div>
+                        <button type="submit" class="btn-primary">CREAR CUENTA</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISTA 2: DASHBOARD -->
+    <section id="dashboardView" class="view">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-logo">SKILLOCK</div>
+            <div class="navbar-links">
+                <a href="#" class="nav-link active" data-view="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-view="bets">Mis Apuestas</a>
+                <a href="#" class="nav-link" data-view="wallet">Wallet</a>
+            </div>
+            <div class="navbar-right">
+                <div class="wallet-info">
+                    <span id="walletBalance" class="balance">💚 $0.00</span>
+                </div>
+                <span id="currentUsername" class="username">Usuario</span>
+                <button id="logoutBtn" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Contenido Dashboard -->
+        <div class="dashboard-content">
+            <!-- Cards Superiores -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">SALDO DISPONIBLE</div>
+                    <div id="availableBalance" class="stat-value green">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">SALDO RETENIDO</div>
+                    <div id="retainedBalance" class="stat-value yellow">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">APUESTAS ACTIVAS</div>
+                    <div id="activeBetsCount" class="stat-value purple">0</div>
+                </div>
+            </div>
+
+            <!-- Unirse a apuesta por código -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Unirse a una Apuesta</h2>
+                </div>
+                <div class="operation-card deposit">
+                    <form id="joinBetForm" class="operation-form">
+                        <div class="form-group">
+                            <label for="joinBetCode">Código de la apuesta</label>
+                            <input type="text" id="joinBetCode" name="joinBetCode" maxlength="4" placeholder="Ej. 1234" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="joinBetTeamSize">Tamaño del equipo</label>
+                            <select id="joinBetTeamSize" name="teamSizeB" required>
+                                <option value="">Seleccionar</option>
+                                <option value="1">1v1</option>
+                                <option value="3">3v3</option>
+                                <option value="5">5v5</option>
+                            </select>
+                        </div>
+                        <div id="joinBetError" class="error-message"></div>
+                        <button type="submit" class="btn-primary">UNIRSE A APUESTA</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cuentas de Juego -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Mis Cuentas de Juego</h2>
+                    <button id="linkGameAccountBtn" class="btn-secondary">+ Vincular Cuenta</button>
+                </div>
+                <div id="gameAccountsList" class="accounts-grid">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <!-- Apuestas Recientes -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Apuestas Recientes</h2>
+                    <button id="newBetBtn" class="btn-secondary">+ Nueva Apuesta</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="recentBetsTable" class="bets-table">
+                        <thead>
+                            <tr>
+                                <th>Juego</th>
+                                <th>Rival</th>
+                                <th>Monto</th>
+                                <th>Premio</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                    <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Se llena dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISTA 3: MIS APUESTAS -->
+    <section id="betsView" class="view">
+        <nav class="navbar">
+            <div class="navbar-logo">SKILLOCK</div>
+            <div class="navbar-links">
+                <a href="#" class="nav-link" data-view="dashboard">Dashboard</a>
+                <a href="#" class="nav-link active" data-view="bets">Mis Apuestas</a>
+                <a href="#" class="nav-link" data-view="wallet">Wallet</a>
+            </div>
+            <div class="navbar-right">
+                <div class="wallet-info">
+                    <span id="walletBalance2" class="balance">💚 $0.00</span>
+                </div>
+                <span id="currentUsername2" class="username">Usuario</span>
+                <button id="logoutBtn2" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <div class="bets-content">
+            <div class="section-header">
+                <h2>Todas Mis Apuestas</h2>
+                <div class="bets-controls">
+                        <label for="statusFilter" class="sr-only">Filtrar por estado</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">Todos los Estados</option>
+                        <option value="0">Draft</option>
+                        <option value="1">Negociando</option>
+                        <option value="2">Acordado</option>
+                        <option value="3">Fondeando</option>
+                        <option value="4">Activo</option>
+                        <option value="5">Completado</option>
+                        <option value="6">Cancelado</option>
+                        <option value="7">Disputado</option>
+                    </select>
+                    <button id="newBetBtn2" class="btn-secondary">+ Nueva Apuesta</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="allBetsTable" class="bets-table">
+                    <thead>
+                        <tr>
+                            <th>Juego</th>
+                            <th>Rival</th>
+                            <th>Monto</th>
+                            <th>Premio</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Se llena dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginación -->
+            <div id="paginationContainer" class="pagination">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- VISTA 4: WALLET -->
+    <section id="walletView" class="view">
+        <nav class="navbar">
+            <div class="navbar-logo">SKILLOCK</div>
+            <div class="navbar-links">
+                <a href="#" class="nav-link" data-view="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-view="bets">Mis Apuestas</a>
+                <a href="#" class="nav-link active" data-view="wallet">Wallet</a>
+            </div>
+            <div class="navbar-right">
+                <div class="wallet-info">
+                    <span id="walletBalance3" class="balance">💚 $0.00</span>
+                </div>
+                <span id="currentUsername3" class="username">Usuario</span>
+                <button id="logoutBtn3" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <div class="wallet-content">
+            <div class="wallet-overview">
+                <div class="wallet-card primary">
+                    <div class="wallet-label">Saldo Disponible</div>
+                    <div id="walletAvailable" class="wallet-amount">$0.00</div>
+                </div>
+                <div class="wallet-card secondary">
+                    <div class="wallet-label">Saldo Retenido</div>
+                    <div id="walletRetained" class="wallet-amount">$0.00</div>
+                </div>
+            </div>
+
+            <div class="wallet-operations">
+                <div class="operation-card deposit">
+                    <h3>Depositar</h3>
+                    <form id="depositForm" class="operation-form">
+                        <div class="form-group">
+                            <label for="depositAmount">Monto ($)</label>
+                            <input type="number" id="depositAmount" name="amount" min="1" step="0.01" required>
+                        </div>
+                        <div id="depositError" class="error-message"></div>
+                        <div id="depositSuccess" class="success-message"></div>
+                        <button type="submit" class="btn-primary">DEPOSITAR</button>
+                    </form>
+                </div>
+
+                <div class="operation-card withdrawal">
+                    <h3>Retirar</h3>
+                    <form id="withdrawalForm" class="operation-form">
+                        <div class="form-group">
+                            <label for="withdrawalAmount">Monto ($)</label>
+                            <input type="number" id="withdrawalAmount" name="amount" min="1" step="0.01" required>
+                        </div>
+                        <div id="withdrawalError" class="error-message"></div>
+                        <div id="withdrawalSuccess" class="success-message"></div>
+                        <button type="submit" class="btn-primary">RETIRAR</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISTA 5: NEGOCIACIÓN DE APUESTA -->
+    <section id="negotiationView" class="view">
+        <nav class="navbar">
+            <div class="navbar-logo">SKILLOCK</div>
+            <div class="navbar-links">
+                <a href="#" class="nav-link" data-view="dashboard">Dashboard</a>
+                <a href="#" class="nav-link active" data-view="bets">Mis Apuestas</a>
+                <a href="#" class="nav-link" data-view="wallet">Wallet</a>
+            </div>
+            <div class="navbar-right">
+                <button id="backToBetsBtn" class="btn-secondary">← Volver</button>
+            </div>
+        </nav>
+
+        <div class="negotiation-content">
+            <div class="negotiation-container">
+                <!-- Encabezado -->
+                <div class="negotiation-header">
+                    <h2>Negociación de Apuesta</h2>
+                    <div class="bet-code-wrap">
+                        <span id="negotiationCode" class="bet-code">Código: ----</span>
+                        <button id="copyNegotiationCodeBtn" class="btn-tertiary" title="Copiar código">Copiar</button>
+                    </div>
+                </div>
+
+                <div id="negotiationMessage" class="success-message"></div>
+
+                <!-- Información de la Apuesta -->
+                <div class="negotiation-info">
+                    <div class="info-row">
+                        <span class="label">Juego:</span>
+                        <span id="negotiationGame" class="value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Tamaño:</span>
+                        <span id="negotiationTeamSize" class="value">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Estado:</span>
+                        <span id="negotiationStatus" class="value status">-</span>
+                    </div>
+                </div>
+
+                <!-- Panel de Negociación -->
+                <div class="negotiation-panel">
+                    <!-- Propuesta Actual -->
+                    <div class="proposal-section">
+                        <h3>💰 Propuesta Actual</h3>
+                        <div class="proposal-cards">
+                            <div class="proposal-card">
+                                <div class="team-label">Tu Equipo</div>
+                                <div id="myTeamProposal" class="proposal-amount">-</div>
+                                <div id="myTeamAccepted" class="acceptance-status">Pendiente</div>
+                            </div>
+                            <div class="proposal-card rival">
+                                <div class="team-label">Equipo Rival</div>
+                                <div id="rivalTeamProposal" class="proposal-amount">-</div>
+                                <div id="rivalTeamAccepted" class="acceptance-status">Pendiente</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Acciones -->
+                    <div class="action-section">
+                        <h3>⚡ Acciones</h3>
+                        
+                        <!-- Aceptar Monto e Iniciar Apuesta -->
+                        <div class="action-group">
+                            <button id="acceptMontoBtn" class="btn-primary">✓ Aceptar monto e iniciar apuesta</button>
+                            <small>Confirma el monto y activa la apuesta inmediatamente</small>
+                        </div>
+
+                        <!-- Contra-proponer Monto -->
+                        <div class="action-group">
+                            <label for="counterMontoInput">Contra-proponer Monto:</label>
+                            <div class="input-group">
+                                <input type="number" id="counterMontoInput" min="1" step="0.01" placeholder="Ingresa nuevo monto">
+                                <button id="counterMontoBtn" class="btn-secondary">📤 Contra-proponer</button>
+                            </div>
+                            <div id="counterMontoError" class="error-message"></div>
+                        </div>
+
+                        <!-- Cancelar Apuesta -->
+                        <div class="action-group">
+                            <button id="cancelBetBtn" class="btn-danger">✕ Cancelar Apuesta</button>
+                            <small>Cancela completamente esta apuesta</small>
+                        </div>
+                    </div>
+
+                    <!-- Historial de Propuestas -->
+                    <div class="history-section">
+                        <h3>📋 Historial de Propuestas</h3>
+                        <div id="proposalHistory" class="proposal-history">
+                            <p style="color: var(--text-secondary); text-align: center;">Aún no hay propuestas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Actualizar -->
+                <div class="negotiation-footer">
+                    <button id="refreshNegotiationBtn" class="btn-secondary">🔄 Actualizar Estado</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALES -->
+    <!-- Modal: Vincular Cuenta de Juego -->
+    <div id="linkGameAccountModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Vincular Cuenta de Juego</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="linkGameAccountForm" class="modal-form">
+                <div class="form-group">
+                    <label for="gameSelect">Juego</label>
+                    <select id="gameSelect" name="game" required>
+                        <option value="">Seleccionar juego</option>
+                        <option value="0">Dota 2</option>
+                        <option value="1">CS2</option>
+                        <option value="2">Valorant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gamePlayerId">ID del Jugador</label>
+                    <input type="text" id="gamePlayerId" name="gamePlayerId" required>
+                </div>
+                <div class="form-group">
+                    <label for="gamePlayerTag">Tag del Jugador</label>
+                    <input type="text" id="gamePlayerTag" name="gamePlayerTag" required>
+                </div>
+                <div id="linkGameAccountError" class="error-message"></div>
+                <button type="submit" class="btn-primary">VINCULAR</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Nueva Apuesta -->
+    <div id="newBetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nueva Apuesta</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="newBetForm" class="modal-form">
+                <div class="form-group">
+                    <label for="betGame">Juego</label>
+                    <select id="betGame" name="game" required>
+                        <option value="">Seleccionar juego</option>
+                        <option value="0">Dota 2</option>
+                        <option value="1">CS2</option>
+                        <option value="2">Valorant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="teamSizeA">Tamaño del Equipo</label>
+                    <select id="teamSizeA" name="teamSizeA" required>
+                        <option value="">Seleccionar</option>
+                        <option value="1">1v1</option>
+                        <option value="3">3v3</option>
+                        <option value="5">5v5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="betGameAccount">Cuenta de Juego</label>
+                    <select id="betGameAccount" name="gameAccountId" required>
+                        <option value="">Seleccionar cuenta</option>
+                        <!-- Se llena dinámicamente -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="montoInicial">Monto Inicial ($)</label>
+                    <input type="number" id="montoInicial" name="montoInicial" min="1" step="0.01" required>
+                </div>
+                <div id="newBetError" class="error-message"></div>
+                <button type="submit" class="btn-primary">CREAR APUESTA</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

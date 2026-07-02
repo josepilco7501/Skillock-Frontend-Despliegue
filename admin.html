@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillock - Panel de Administrador</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- VISTA 1: LOGIN ADMIN -->
+    <section id="adminLoginView" class="view active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="color: #f5a623; margin: 0;">PANEL ADMIN</h2>
+                    <p style="color: var(--text-secondary); margin: 5px 0 0 0;">Acceso Restringido</p>
+                </div>
+
+                <form id="adminLoginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="adminEmail">Email</label>
+                        <input type="email" id="adminEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Contraseña</label>
+                        <input type="password" id="adminPassword" name="password" required>
+                    </div>
+                    <div id="adminLoginError" class="error-message"></div>
+                    <button type="submit" class="btn-primary">ENTRAR</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISTA 2: DASHBOARD ADMIN -->
+    <section id="adminDashboardView" class="view">
+        <!-- Navbar Admin -->
+        <nav class="navbar">
+            <div class="navbar-logo">
+                SKILLOCK ADMIN
+                <span style="background: #f5a623; color: #1a1a2e; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px; font-weight: 700;">ADMIN</span>
+            </div>
+            <div class="navbar-links">
+                <a href="#" class="nav-link active" data-admin-view="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-admin-view="bets">Apuestas</a>
+                <a href="#" class="nav-link" data-admin-view="users">Usuarios</a>
+            </div>
+            <div class="navbar-right">
+                <button id="adminLogoutBtn" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Contenido Dashboard Admin -->
+        <div class="dashboard-content">
+            <!-- Cards Superiores - Estadísticas -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">APUESTAS COMPLETADAS</div>
+                    <div id="totalCompletedBets" class="stat-value green">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">MONTO TOTAL APOSTADO</div>
+                    <div id="totalBetAmount" class="stat-value purple">$0.00</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">COMISIÓN GANADA (7%)</div>
+                    <div id="totalCommission" class="stat-value yellow">$0.00</div>
+                </div>
+            </div>
+
+            <!-- VISTA Dashboard - Tabla Apuestas Completadas -->
+            <div id="dashboardContent" class="section" style="display: block;">
+                <div class="section-header">
+                            <h2 style="display: inline-block;">Apuestas Completadas Recientemente</h2>
+                            <button id="downloadReportBtn" class="btn-secondary" style="margin-left:16px; vertical-align: middle;">📥 Descargar reporte PDF</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="adminBetsTable" class="bets-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Juego</th>
+                                <th>Monto x Equipo</th>
+                                <th>Premio Neto</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-secondary);">Cargando apuestas...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VISTA Apuestas - Apuestas Activas (Admin puede liquidar) -->
+            <div id="betsContent" class="section" style="display: none;">
+                <div class="section-header">
+                    <h2>Apuestas Activas</h2>
+                </div>
+                <div class="table-responsive">
+                    <table id="adminAllBetsTable" class="bets-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Juego</th>
+                                <th>Monto x Equipo</th>
+                                <th>Premio Neto</th>
+                                <th>Fecha</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: var(--text-secondary);">Cargando apuestas...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VISTA Usuarios - Tabla Usuarios -->
+            <div id="usersContent" class="section" style="display: none;">
+                <div class="section-header">
+                    <h2>Usuarios Registrados</h2>
+                </div>
+                <div class="table-responsive">
+                    <table id="adminUsersTable" class="bets-table">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Fecha de Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-secondary);">Cargando usuarios...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="usersMessage" style="margin-top: 20px; padding: 15px; background: rgba(255, 165, 0, 0.1); border: 1px solid #f5a623; border-radius: 8px; color: #f5a623; text-align: center; display: none;">
+                    ⚠️ Endpoint de usuarios pendiente de implementación
+                </div>
+
+                <!-- Form para registrar administradores -->
+                <div style="margin-top: 20px; padding: 15px; border-radius: 8px; border: 1px solid #e6e6e6; background: #fafafa;">
+                    <h3>Registrar Administrador</h3>
+                    <form id="adminRegisterForm" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: end;">
+                        <div style="flex: 1; min-width: 180px;">
+                            <label>Usuario</label><br>
+                            <input id="adminRegUsername" type="text" required>
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label>Email</label><br>
+                            <input id="adminRegEmail" type="email" required>
+                        </div>
+                        <div style="flex: 1; min-width: 180px;">
+                            <label>Contraseña</label><br>
+                            <input id="adminRegPassword" type="password" required>
+                        </div>
+                        <div>
+                            <button id="adminRegisterBtn" class="btn-primary">Registrar Admin</button>
+                        </div>
+                        <div id="adminRegisterMsg" style="width:100%; color: green; display:none; margin-top:8px;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="admin.js"></script>
+</body>
+</html>
+

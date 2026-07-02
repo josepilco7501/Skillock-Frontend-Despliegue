@@ -1,0 +1,1204 @@
+/* ========================================
+   RESET Y VARIABLES GLOBALES
+   ======================================== */
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-navbar: #0d0d14;
+    --accent-green: #00ff88;
+    --accent-purple: #6c63ff;
+    --accent-gold: #f5a623;
+    --text-primary: #ffffff;
+    --text-secondary: #8888aa;
+    --border-color: #1e1e2e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   VISTAS (Display Control)
+   ======================================== */
+.view {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    flex: 1;
+}
+
+.view.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   VISTA 1: AUTH (LOGIN/REGISTRO)
+   ======================================== */
+#authView {
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-logo {
+    margin-bottom: 40px;
+}
+
+.logo-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.auth-card {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-btn.active {
+    color: var(--accent-green);
+    border-bottom-color: var(--accent-green);
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: var(--text-secondary);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+    background-color: rgba(0, 255, 136, 0.05);
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.btn-primary {
+    padding: 14px 24px;
+    background-color: var(--accent-green);
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--accent-green);
+    border: 2px solid var(--accent-green);
+    border-radius: 6px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+}
+
+.btn-logout {
+    padding: 8px 16px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
+/* ========================================
+   MENSAJES DE ERROR Y ÉXITO
+   ======================================== */
+.error-message,
+.success-message {
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.error-message.show {
+    max-height: 100px;
+    color: #ff4444;
+    background-color: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+}
+
+.success-message.show {
+    max-height: 100px;
+    color: var(--accent-green);
+    background-color: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+    background-color: var(--bg-navbar);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.navbar-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--accent-green);
+    letter-spacing: 2px;
+    min-width: 150px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 30px;
+    flex: 1;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    color: var(--accent-green);
+}
+
+.nav-link.active {
+    color: var(--accent-green);
+    border-bottom: 2px solid var(--accent-green);
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.wallet-info {
+    padding: 8px 16px;
+    background-color: rgba(0, 255, 136, 0.1);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.balance {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+.username {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   VISTA 2: DASHBOARD
+   ======================================== */
+#dashboardView {
+    flex-direction: column;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.stat-value.green {
+    color: var(--accent-green);
+}
+
+.stat-value.yellow {
+    color: var(--accent-gold);
+}
+
+.stat-value.purple {
+    color: var(--accent-purple);
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+.accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.account-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.account-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+}
+
+.account-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.account-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #333;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.account-tag {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.bets-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+}
+
+.bets-table thead {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.bets-table th {
+    padding: 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bets-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(30, 30, 46, 0.5);
+    font-size: 13px;
+}
+
+.bets-table tbody tr:hover {
+    background-color: rgba(0, 255, 136, 0.05);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+.status-completed {
+    background-color: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+.status-cancelled {
+    background-color: rgba(255, 68, 68, 0.2);
+    color: #ff4444;
+    border: 1px solid rgba(255, 68, 68, 0.4);
+}
+
+.status-draft {
+    background-color: rgba(136, 136, 170, 0.2);
+    color: var(--text-secondary);
+    border: 1px solid rgba(136, 136, 170, 0.4);
+}
+
+.status-negotiating,
+.status-agreed,
+.status-funding {
+    background-color: rgba(245, 166, 35, 0.2);
+    color: var(--accent-gold);
+    border: 1px solid rgba(245, 166, 35, 0.4);
+}
+
+.status-disputed {
+    background-color: rgba(108, 99, 255, 0.2);
+    color: var(--accent-purple);
+    border: 1px solid rgba(108, 99, 255, 0.4);
+}
+
+/* ========================================
+   VISTA 3: MIS APUESTAS
+   ======================================== */
+#betsView {
+    flex-direction: column;
+}
+
+.bets-content {
+    flex: 1;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.bets-controls {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 16px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: var(--accent-green);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.pagination button,
+.pagination span {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination button:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
+.pagination button.active {
+    background-color: var(--accent-green);
+    color: #000;
+    border-color: var(--accent-green);
+}
+
+/* ========================================
+   VISTA 4: WALLET
+   ======================================== */
+#walletView {
+    flex-direction: column;
+}
+
+.wallet-content {
+    flex: 1;
+    padding: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.wallet-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.wallet-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wallet-card.primary {
+    border: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.wallet-card.secondary {
+    border: 2px solid rgba(245, 166, 35, 0.3);
+}
+
+.wallet-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.wallet-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+.wallet-card.secondary .wallet-amount {
+    color: var(--accent-gold);
+}
+
+.wallet-operations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.operation-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.operation-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+.operation-card.deposit {
+    border: 2px solid rgba(0, 255, 136, 0.2);
+}
+
+.operation-card.withdrawal {
+    border: 2px solid rgba(245, 166, 35, 0.2);
+}
+
+.operation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ========================================
+   MODALES
+   ======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--accent-green);
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    .navbar-links {
+        width: 100%;
+        gap: 16px;
+    }
+
+    .navbar-right {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-content,
+    .bets-content,
+    .wallet-content {
+        padding: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accounts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bets-table {
+        font-size: 12px;
+    }
+
+    .bets-table th,
+    .bets-table td {
+        padding: 10px 8px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .bets-controls {
+        width: 100%;
+    }
+
+    .wallet-operations {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 24px;
+    }
+
+    .logo-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .navbar-logo {
+        font-size: 18px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .accounts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-link {
+        font-size: 11px;
+    }
+}
+
+/* ========================================
+   VISTA 5: ESTILOS DE NEGOCIACIÓN
+   ======================================== */
+
+.negotiation-content {
+    padding: 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.negotiation-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    animation: slideIn 0.3s ease;
+}
+
+.negotiation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--accent-green);
+    padding-bottom: 20px;
+}
+
+.negotiation-header h2 {
+    font-size: 28px;
+    color: var(--accent-green);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.bet-code {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--accent-green);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.bet-code-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn-tertiary {
+    background: transparent;
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.btn-tertiary:hover {
+    background: rgba(0, 255, 136, 0.12);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.25);
+}
+
+.negotiation-message {
+    margin: -10px 0 20px;
+}
+
+.negotiation-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-row .label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.info-row .value {
+    color: var(--accent-green);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info-row .status {
+    color: var(--accent-purple);
+}
+
+.negotiation-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.proposal-section h3,
+.action-section h3,
+.history-section h3 {
+    color: var(--accent-green);
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.proposal-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.proposal-card {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(108, 99, 255, 0.1));
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.proposal-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.proposal-card.rival {
+    border-color: var(--accent-purple);
+}
+
+.proposal-card.rival:hover {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+}
+
+.team-label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.proposal-amount {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--accent-gold);
+    margin: 15px 0;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.acceptance-status {
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    color: var(--text-secondary);
+}
+
+.acceptance-status.accepted {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+.acceptance-status.pending {
+    background: rgba(245, 166, 35, 0.2);
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+
+.action-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.action-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-group:last-child {
+    margin-bottom: 0;
+}
+
+.action-group label {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.action-group small {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: 'Rajdhani', monospace;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #ee5a6f, #ff6b6b);
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+}
+
+.history-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.proposal-history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    background: rgba(0, 255, 136, 0.05);
+    border-left: 3px solid var(--accent-green);
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.history-item.rival {
+    background: rgba(108, 99, 255, 0.05);
+    border-left-color: var(--accent-purple);
+}
+
+.negotiation-footer {
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Responsive para negociación */
+@media (max-width: 768px) {
+    .negotiation-content {
+        padding: 15px 20px;
+    }
+
+    .negotiation-container {
+        padding: 20px;
+    }
+
+    .negotiation-info {
+        grid-template-columns: 1fr;
+    }
+
+    .proposal-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .negotiation-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group button {
+        width: 100%;
+    }
+}
+
